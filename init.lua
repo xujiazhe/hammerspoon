@@ -13,30 +13,41 @@
 -- -----------------------------------------------------------------------
 --                            ** Requires **                            --
 -- -----------------------------------------------------------------------
-require "window-management"
-require "vox-control"
-require "vim-binding"
+-- require "window-management"
+-- require "vox-control"
+-- require "vim-binding"
 require "key-binding"
 
 -- -----------------------------------------------------------------------
 --                            ** For Debug **                           --
 -- -----------------------------------------------------------------------
 function reloadConfig(files)
-  local doReload = false
-  for _,file in pairs(files) do
-    if file:sub(-4) == ".lua" then
-      doReload = true
+    local doReload = false
+    for _, file in pairs(files) do
+        if file:sub(-4) == ".lua" then
+            doReload = true
+        end
     end
-  end
-  if doReload then
-    hs.reload()
-    hs.alert.show('Config Reloaded')
-  end
+    if doReload then
+        hs.reload()
+        hs.alert.show('Config Reloaded')
+    end
 end
+
 hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
 -- Well, sometimes auto-reload is not working, you know u.u
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "n", function()
-  hs.reload()
+hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "t", function()
+    hs.reload()
 end)
 hs.alert.show("Config loaded")
+
+-- if hs.eventtap.checkKeyboardModifiers().fn then
+--   hs.alert.show("FN is DOWN!!!")
+-- end
+
+-- Catch fn-h and convert it to a left arrow key.
+-- 1 程序窗口管理  半/移
+-- 2 切换应用
+
+-- 切换到屏幕共享的
